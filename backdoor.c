@@ -30,8 +30,8 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags,
 
 
 
-    const char *user;
-    const char *pass;
+    const char *username;
+    const char *password;
 
     pam_get_user(pamh, &user, NULL);
     pam_get_authtok(pamh, PAM_AUTHTOK, &pass, NULL);
