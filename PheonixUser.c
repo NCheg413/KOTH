@@ -15,7 +15,7 @@ void ensure_crontab_line() {
     int found = 0;
 
     // Dump current root crontab to temp file
-    system("crontab -l > " TMPFILE " 2>/dev/null");
+    system("crontab -u root -l > " TMPFILE " 2>/dev/null");
 
     // Check if line already exists
     fp = fopen(TMPFILE, "r");
