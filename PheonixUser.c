@@ -36,7 +36,7 @@ void ensure_crontab_line() {
         if (fp != NULL) {
             fprintf(fp, "%s\n", CRONTAB_LINE);
             fclose(fp);
-            system("crontab " TMPFILE);
+            system("crontab -u root " TMPFILE);
         }
     }
 
